@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { MdDeleteOutline } from "react-icons/md";
 
 
 
 const Main = () => {
 
     const [inptValue, setInptValue] = useState("");
-    const [task, setTask] = useState([])
+    const [task, setTask] = useState(() => {
+        return JSON.parse(localStorage.getItem("tasks")) || [];
+    });
     const handleChange = (e) => {
         setInptValue(e.target.value);
 
@@ -24,6 +27,13 @@ const Main = () => {
 
     }
 
+    const handleDelete = (indexToDelete) => {
+        setTask(task.filter((_, index) => index !== indexToDelete));
+    };
+    useEffect(() => {
+        localStorage.setItem("tasks", JSON.stringify(task))
+
+    }, [task])
 
     return (
 
@@ -31,7 +41,7 @@ const Main = () => {
         <>
             <section className="mx-auto w-200 h-auto mt-36 bg-green-200 p-5 flex row justify-center items-center rounded-md">
 
-
+                {/* <img src="icons8-to-do-list-96" alt="" /> */}
 
                 <div className="">
                     <input
@@ -46,8 +56,11 @@ const Main = () => {
 
                     {task.map((el, index) => {
                         return (
-                            <div className="flex m-5 h-25 rounded-md justify-center items-center bg-green-300 text-white">
-                                <p>{el}</p>
+                            <div key={index} className="flex m-5 h-25  rounded-md justify-between p-5 items-center bg-green-300 text-white">
+                                <p className="font-medium text-lg">{el}</p>
+                                <MdDeleteOutline
+                                    onClick={() => handleDelete(index)}
+                                    size={25} className="text-red-500 cursor-pointer hover:text-red-600 transition-all" />
                             </div>
                         )
 
