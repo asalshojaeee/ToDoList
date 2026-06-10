@@ -7,6 +7,7 @@ import '../assets/styles/Main.css'
 const Main = () => {
 
     const [inptValue, setInptValue] = useState("");
+    const [check, setCheck] = useState(false);
     const [task, setTask] = useState(() => {
         return JSON.parse(localStorage.getItem("tasks")) || [];
     });
@@ -30,6 +31,11 @@ const Main = () => {
     const handleDelete = (indexToDelete) => {
         setTask(task.filter((_, index) => index !== indexToDelete));
     };
+
+
+    const handleCkeck = () => {
+
+    }
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(task))
 
@@ -41,7 +47,7 @@ const Main = () => {
         <>
 
             <div className="flex justify-center m-5 gap-5 items-center mt-24">
-                <img src={img} alt="" className="w-15 h-15"/>
+                <img src={img} alt="" className="w-15 h-15" />
                 <p className="text-orange-400 font-bold text-xl">ToDoList</p>
 
             </div>
@@ -64,7 +70,24 @@ const Main = () => {
                     {task.map((el, index) => {
                         return (
                             <div key={index} className="flex m-5 h-25  rounded-md justify-between p-5 items-center style text-white">
-                                <p className="font-medium text-lg">{el}</p>
+
+                                <div className="flex justify-center items-center gap-4">
+
+                                    <input
+                                        checked={check}
+                                        onChange={(e) => setCheck(e.target.checked)}
+                                        id="react-checkbox-list" type="checkbox" value="" class="w-4 h-4  outline-0" />
+
+
+
+                                    <p
+                                        className={`font-medium text-2xl ${check ? "line-through text-gray-400" : ""
+                                            }`}
+                                    >
+                                        {el}
+                                    </p>
+                                </div>
+
                                 <MdDeleteOutline
                                     onClick={() => handleDelete(index)}
                                     size={25} className="text-red-600 cursor-pointer hover:text-red-500 transition-all hover:-translate-y-1" />
