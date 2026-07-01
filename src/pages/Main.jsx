@@ -48,7 +48,7 @@ const Main = () => {
 
             <div className="flex justify-center m-5 gap-5 items-center mt-24">
                 <img src={img} alt="" className="w-15 h-15" />
-                <p className="text-blue-400 font-bold text-xl">TooList</p>
+                <p className="text-orange-400 font-bold text-xl">ToDoList</p>
 
             </div>
 
