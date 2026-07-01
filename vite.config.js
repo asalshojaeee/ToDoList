@@ -10,4 +10,8 @@ export default defineConfig({
         tailwindcss(),
 
   ],
+
+  base:"/ToDoList"
+
+
 })
