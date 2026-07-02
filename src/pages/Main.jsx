@@ -93,7 +93,7 @@ const Main = () => {
 
 
                                     <p
-                                        className={`font-medium text-2xl ${el.completed ? "text-gray-300" : ""
+                                        className={`font-medium text-2xl ${el.completed ? "text-gray-400" : ""
                                             }`}
                                     >
                                         {el.text}
