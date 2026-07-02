@@ -22,7 +22,13 @@ const Main = () => {
         if (inptValue.trim() === "") {
             return
         }
-        setTask([...task, inptValue])
+        setTask([
+            ...task,
+            {
+                text: inptValue,
+                completed: false,
+            },
+        ]);
         setInptValue("");
 
 
@@ -33,9 +39,15 @@ const Main = () => {
     };
 
 
-    const handleCkeck = () => {
+    const handleCheck = (index) => {
+        const newTasks = [...task];
 
-    }
+        newTasks[index].completed = !newTasks[index].completed;
+
+        setTask(newTasks);
+    };
+
+
     useEffect(() => {
         localStorage.setItem("tasks", JSON.stringify(task))
 
@@ -74,17 +86,17 @@ const Main = () => {
                                 <div className="flex justify-center items-center gap-4">
 
                                     <input
-                                        checked={check}
-                                        onChange={(e) => setCheck(e.target.checked)}
-                                        id="react-checkbox-list" type="checkbox" value="" class="w-4 h-4  outline-0" />
+                                        checked={el.completed}
+                                        onChange={() => handleCheck(index)}
+                                        id="react-checkbox-list" type="checkbox" value="" className="w-4 h-4  outline-0" />
 
 
 
                                     <p
-                                        className={`font-medium text-2xl ${check ? "line-through text-gray-400" : ""
+                                        className={`font-medium text-2xl ${el.completed ? "text-gray-300" : ""
                                             }`}
                                     >
-                                        {el}
+                                        {el.text}
                                     </p>
                                 </div>
 
