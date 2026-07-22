@@ -100,7 +100,7 @@ const Main = () => {
                             onClick={() => setFilter("All")}
                             className={`pb-1 ${filter === "All"
                                     ? "border-b-2 border-blue-500 text-blue-500"
-                                    : "text-gray-500"
+                                    : "text-orange-500"
                                 }`}
                         >
                             All
@@ -110,7 +110,7 @@ const Main = () => {
                             onClick={() => setFilter("Active")}
                             className={`pb-1 ${filter === "Active"
                                     ? "border-b-2 border-blue-500 text-blue-500"
-                                    : "text-gray-500"
+                                    : "text-orange-500"
                                 }`}
                         >
                             Active
@@ -120,7 +120,7 @@ const Main = () => {
                             onClick={() => setFilter("Done")}
                             className={`pb-1 ${filter === "Done"
                                     ? "border-b-2 border-blue-500 text-blue-500"
-                                    : "text-gray-500"
+                                    : "text-orange-500"
                                 }`}
                         >
                             Done
