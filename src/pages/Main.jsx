@@ -8,6 +8,7 @@ const Main = () => {
 
     const [inptValue, setInptValue] = useState("");
     const [check, setCheck] = useState(false);
+    const [filter, setFilter] = useState("All")
     const [task, setTask] = useState(() => {
         return JSON.parse(localStorage.getItem("tasks")) || [];
     });
@@ -52,7 +53,19 @@ const Main = () => {
         localStorage.setItem("tasks", JSON.stringify(task))
 
     }, [task])
+    const filteredTasks = task.filter((item) => {
+        if (filter === "All") {
+            return true;
+        }
 
+        if (filter === "Active") {
+            return !item.completed;
+        }
+
+        if (filter === "Done") {
+            return item.completed;
+        }
+    });
     return (
 
 
@@ -77,11 +90,46 @@ const Main = () => {
 
                     <button
                         onClick={handleClick}
-                        className="bg-green-900 m-3 text-white p-2 h-12 w-24 rounded-md">Add</button>
+                        className="bg-green-900 m-3 text-white  w-10 h-10 text-center text-2xl font-extrabold rounded-full cursor-pointer">+</button>
+                    <div className="mt-5 flex gap-5">
 
-                    {task.map((el, index) => {
+
+
+
+                        <button
+                            onClick={() => setFilter("All")}
+                            className={`pb-1 ${filter === "All"
+                                    ? "border-b-2 border-blue-500 text-blue-500"
+                                    : "text-gray-500"
+                                }`}
+                        >
+                            All
+                        </button>
+
+                        <button
+                            onClick={() => setFilter("Active")}
+                            className={`pb-1 ${filter === "Active"
+                                    ? "border-b-2 border-blue-500 text-blue-500"
+                                    : "text-gray-500"
+                                }`}
+                        >
+                            Active
+                        </button>
+
+                        <button
+                            onClick={() => setFilter("Done")}
+                            className={`pb-1 ${filter === "Done"
+                                    ? "border-b-2 border-blue-500 text-blue-500"
+                                    : "text-gray-500"
+                                }`}
+                        >
+                            Done
+                        </button>
+
+                    </div>
+                    {filteredTasks.map((el, index) => {
                         return (
-                            <div key={index} className="flex m-5 h-25  rounded-md justify-between p-5 items-center style text-white">
+                            <div key={index} className="flex m-7 h-25  rounded-md justify-between p-5 items-center style text-white">
 
                                 <div className="flex justify-center items-center gap-4">
 
@@ -93,7 +141,7 @@ const Main = () => {
 
 
                                     <p
-                                        className={`font-medium text-2xl ${el.completed ? "text-gray-400" : ""
+                                        className={`font-medium text-2xl ${el.completed ? "text-blue-400 line-through" : ""
                                             }`}
                                     >
                                         {el.text}
